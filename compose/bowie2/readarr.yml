@@ -1,0 +1,22 @@
+services:
+  # Readarr
+  readarr:
+    image: ghcr.io/hotio/readarr
+    container_name: readarr
+    security_opt:
+      - no-new-privileges:true
+    restart: "no"
+    # profiles: ["media", "arrs", "all"]
+    networks:
+      - default
+    ports:
+      - "8787:8787"
+    volumes:
+      - $DOCKERDIR/appdata/readarr:/config
+      - $DATADIR/downloads:/data/downloads
+      - $DATADIR/data/media:/data/media
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      TZ: $TZ
+      PUID: $PUID
+      PGID: $PGID
